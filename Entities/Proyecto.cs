@@ -11,13 +11,20 @@ namespace TechOil.Entities
     }
     public class Proyecto
     {
-        [Key]
+        
         [Column("cod_proyecto")]
+        [Key]
         public int CodProyecto { get; set; }
-        [Column("nombre", Type = "VARCHAR(100)")]
+
+        [Required]
+        [Column("nombre", TypeName = "VARCHAR(100)")]
         public string Nombre { get; set; }
-        public decimal Direccion { get; set; }
-        public int EstadoProyecto { get; set; }
+        [Required]
+        [Column("direccion" , TypeName = "VARCHAR(100)")]
+        public string Direccion { get; set; }
+        [Required]
+        [Column("estado_proyecto")]
+        public EstadoProyecto EstadoProyecto { get; set; }
 
     }
 }

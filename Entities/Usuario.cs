@@ -14,14 +14,14 @@ namespace TechOil.Entities
         [Key]
         public int CodUsuario { get; set; }
 
-        [Column("nombre")]
+        [Column("nombre" , TypeName = "VARCHAR(100)")]
         public string Nombre { get; set; }
 
         [Column("dni")]
         public int Dni { get; set; }
 
         [Column("tipo")]
-        public int Tipo { get; set; }
+        public Tipo Tipo { get; set; }
 
         [Column("clave")]
         public string Clave { get; set; }

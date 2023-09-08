@@ -21,10 +21,10 @@ namespace TechOil.Entities
 
         [Required]
         [Column("estado_servicio")]
-        public bool EstadoServicio { get; set; }
+        public EstadoServicio EstadoServicio { get; set; }
 
         [Required]
-        [Column("valor_hora")]
+        [Column("valor_hora", TypeName = "DECIMAL")]
         public decimal ValorHora { get; set; }
         
     }

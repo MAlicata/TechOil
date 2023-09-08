@@ -1,3 +1,6 @@
+using TechOil.DataAccess;
+using Microsoft.EntityFrameworkCore;
+
 namespace TechOil
 {
     public class Program
@@ -12,6 +15,11 @@ namespace TechOil
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddDbContext<ApplicationDbContext>(option =>
+            {
+                option.UseSqlServer("name=DefaultConnection");
+            });
 
             var app = builder.Build();
 

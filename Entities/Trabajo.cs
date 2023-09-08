@@ -10,7 +10,7 @@ namespace TechOil.Entities
         [Key]
         public int CodTrabajo { get; set; }
 
-        [Column("cod_trabajo")]
+        [Column("fecha")]
         public DateTime Fecha { get; set; }
 
         [Column("cod_proyecto")]
@@ -26,10 +26,10 @@ namespace TechOil.Entities
         [Column("cant_horas")]
         public int CantHoras { get; set; }
 
-        [Column("valor_hora")]
+        [Column("valor_hora", TypeName = "Decimal")]
         public decimal ValorHora { get; set; }
 
-        [Column("costo")]
+        [Column("costo", TypeName = "DECIMAL")]
         public decimal Costo { get; set; }
         
     }
