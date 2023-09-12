@@ -1,5 +1,6 @@
 using TechOil.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using TechOil.Services;
 
 namespace TechOil
 {
@@ -20,6 +21,8 @@ namespace TechOil
             {
                 option.UseSqlServer("name=DefaultConnection");
             });
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWorkService>();
 
             var app = builder.Build();
 
