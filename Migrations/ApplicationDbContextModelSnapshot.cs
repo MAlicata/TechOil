@@ -144,7 +144,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 7, 10, 16, 55, 741, DateTimeKind.Local).AddTicks(1442),
+                            Fecha = new DateTime(2023, 9, 14, 11, 14, 36, 683, DateTimeKind.Local).AddTicks(3216),
                             ValorHora = 100m
                         });
                 });
@@ -167,6 +167,11 @@ namespace TechOil.Migrations
                         .HasColumnType("int")
                         .HasColumnName("dni");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("usuario_email");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)")
@@ -186,6 +191,7 @@ namespace TechOil.Migrations
                             CodUsuario = 1,
                             Clave = "1234",
                             Dni = 12345678,
+                            Email = "matias1995@hotmail.com.ar",
                             Nombre = "Matias",
                             Tipo = 1
                         });

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TechOil.Migrations
 {
-    public partial class techoilDb : Migration
+    public partial class AddMigrationtechoilDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,7 +48,8 @@ namespace TechOil.Migrations
                     nombre = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     dni = table.Column<int>(type: "int", nullable: false),
                     tipo = table.Column<int>(type: "int", nullable: false),
-                    clave = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    clave = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    usuario_email = table.Column<string>(type: "VARCHAR(100)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -97,13 +98,13 @@ namespace TechOil.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuarios",
-                columns: new[] { "cod_usuario", "clave", "dni", "nombre", "tipo" },
-                values: new object[] { 1, "1234", 12345678, "Matias", 1 });
+                columns: new[] { "cod_usuario", "clave", "dni", "usuario_email", "nombre", "tipo" },
+                values: new object[] { 1, "1234", 12345678, "matias1995@hotmail.com.ar", "Matias", 1 });
 
             migrationBuilder.InsertData(
                 table: "Trabajos",
                 columns: new[] { "cod_trabajo", "cant_horas", "cod_proyecto", "cod_servicio", "costo", "fecha", "valor_hora" },
-                values: new object[] { 2, 20, 9, 5, 2000m, new DateTime(2023, 9, 7, 10, 16, 55, 741, DateTimeKind.Local).AddTicks(1442), 100m });
+                values: new object[] { 2, 20, 9, 5, 2000m, new DateTime(2023, 9, 14, 11, 14, 36, 683, DateTimeKind.Local).AddTicks(3216), 100m });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trabajos_cod_proyecto",
