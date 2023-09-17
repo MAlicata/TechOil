@@ -25,5 +25,9 @@ namespace TechOil.Entities
 
         [Column("clave")]
         public string Clave { get; set; }
+
+        [Column("usuario_email", TypeName = "VARCHAR(100)")]
+        public string Email { get; set; }
+
     }
 }
