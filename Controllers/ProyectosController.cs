@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using TechOil.DTOs;
 using TechOil.Entities;
 using TechOil.Services;
 
@@ -22,6 +23,39 @@ namespace TechOil.Controllers
 
             return proyectos;
         }
+
+        [HttpPost]
+        [Route("Register")]
+        //[Authorize]
+        public async Task<IActionResult> Register(ProyectoDTO dto)
+        {
+            var proyecto = new Proyecto(dto);
+            await _unitOfWork.ProyectoRepository.Insert(proyecto);
+            await _unitOfWork.Complete();
+            return Ok(true);
+        }
+
+        [HttpPut("{id}")]
+        //[Authorize]
+        public async Task<IActionResult> Update([FromRoute] int id, ProyectoDTO dto)
+        {
+            var result = await _unitOfWork.ProyectoRepository.Update(new Proyecto(dto, id));
+
+            await _unitOfWork.Complete();
+            return Ok(true);
+        }
+
+
+        [HttpDelete("{id}")]
+        //[Authorize]
+        public async Task<IActionResult> Delete([FromRoute] int id)
+        {
+            var result = await _unitOfWork.ProyectoRepository.Delete(id);
+
+            await _unitOfWork.Complete();
+            return Ok(true);
+        }
+
 
     }
 }
