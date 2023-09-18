@@ -11,8 +11,8 @@ namespace TechOil.DataAccess.DatabaseSeeding
                 new Proyecto
                 {
                     CodProyecto = 9,
-                    Nombre = "Desarrollo de Api Web",
-                    Direccion = "San Miguel de tucuman",
+                    Nombre = "Planta de Gas - Zona 1",
+                    Direccion = "San Miguel de Tucuman",
                     EstadoProyecto = EstadoProyecto.Confirmado                    
                 });
         }

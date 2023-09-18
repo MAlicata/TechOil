@@ -11,7 +11,7 @@ namespace TechOil.DataAccess.DatabaseSeeding
                 new Servicio
                 {
                     CodServicio = 5,
-                    Descr = "Servicio de Marketing",
+                    Descr = "Servicio de Refinamiento de Gas",
                     EstadoServicio = EstadoServicio.Activo,
                     ValorHora = 100
                 });
