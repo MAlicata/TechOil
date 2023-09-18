@@ -15,7 +15,7 @@ namespace TechOil.DataAccess.DatabaseSeeding
                     Dni = 12345678,
                     Tipo = Tipo.Administrador,
                     Clave = "1234",
-                    Email = "matias1995@hotmail.com.ar"
+                    Email = "matias@hotmail.com.ar"
                 });
         }
     }

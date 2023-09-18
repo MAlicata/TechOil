@@ -6,8 +6,8 @@ namespace TechOil.Entities
 {
     public enum EstadoServicio
     {
-        Activo,
-        Desactivado
+        Desactivado = 0,
+        Activo = 1
     }
 
     public class Servicio
