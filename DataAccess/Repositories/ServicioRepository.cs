@@ -8,7 +8,11 @@ namespace TechOil.DataAccess.Repositories
     {
         public ServicioRepository(ApplicationDbContext context) : base(context)
         {
-            
+
+        }
+        public override async Task<List<Servicio>> GetAllActivo()
+        {
+            return await _context.Servicios.Where(s => s.EstadoServicio == EstadoServicio.Activo).ToListAsync();
         }
 
         public override async Task<bool> Update(Servicio updateServicio)

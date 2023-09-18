@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechOil.DataAccess.Repositories.Interfaces;
+using TechOil.Entities;
 
 namespace TechOil.DataAccess.Repositories
 {
@@ -10,14 +11,12 @@ namespace TechOil.DataAccess.Repositories
         public Repository(ApplicationDbContext context)
         {
             _context = context;
-        }
-
-       
+        }       
 
         public virtual async Task<List<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
-        }
+        }        
         public virtual async Task<bool> Insert(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
@@ -30,6 +29,11 @@ namespace TechOil.DataAccess.Repositories
         }
 
         public virtual Task<bool> Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Task<List<T>> GetAllActivo()
         {
             throw new NotImplementedException();
         }

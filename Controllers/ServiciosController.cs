@@ -28,6 +28,14 @@ namespace TechOil.Controllers
             return servicios;
         }
 
+        [HttpGet("activos")]
+        public async Task<ActionResult<IEnumerable<Servicio>>> GetAllActivo()
+        {
+            var servicios = await _unitOfWork.ServicioRepository.GetAllActivo();
+
+            return Ok(servicios);
+        }
+
         [HttpPost]
         [Route("Register")]
         //[Authorize]
