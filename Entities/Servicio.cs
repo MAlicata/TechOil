@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TechOil.DTOs;
 
 namespace TechOil.Entities
 {
@@ -11,6 +12,25 @@ namespace TechOil.Entities
 
     public class Servicio
     {
+        public Servicio()
+        {
+            
+        }
+
+        public Servicio(ServicioDTO dto)
+        {
+            Descr = dto.Descr;
+            EstadoServicio = dto.EstadoServicio;
+            ValorHora = dto.ValorHora;
+        }
+        public Servicio(ServicioDTO dto, int id)
+        {
+            CodServicio = id;
+            Descr = dto.Descr;
+            EstadoServicio = dto.EstadoServicio;
+            ValorHora = dto.ValorHora;
+        }
+
         [Column("cod_servicio")]
         [Key]
         public int CodServicio { get; set; }

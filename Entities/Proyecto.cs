@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TechOil.DTOs;
 
 namespace TechOil.Entities
 {
@@ -11,7 +12,26 @@ namespace TechOil.Entities
     }
     public class Proyecto
     {
-        
+        public Proyecto()
+        {
+            
+        }
+
+        public Proyecto(ProyectoDTO dto)
+        {
+            Nombre = dto.Nombre;
+            Direccion = dto.Direccion;
+            EstadoProyecto = dto.EstadoProyecto;
+        }
+
+        public Proyecto(ProyectoDTO dto, int id)
+        {
+            CodProyecto = id;
+            Nombre = dto.Nombre;
+            Direccion = dto.Direccion;
+            EstadoProyecto = dto.EstadoProyecto;
+        }
+
         [Column("cod_proyecto")]
         [Key]
         public int CodProyecto { get; set; }

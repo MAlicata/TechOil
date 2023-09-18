@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TechOil.DTOs;
 
 namespace TechOil.Entities
 {
@@ -10,6 +11,30 @@ namespace TechOil.Entities
     }
     public class Usuario
     {
+        public Usuario(UsuarioDTO dto)
+        {
+            Nombre = dto.Nombre;
+            Dni = dto.Dni;
+            Tipo = dto.Tipo;
+            Clave = dto.Clave;
+            Email = dto.Usuario_Email;
+        }
+
+        public Usuario(UsuarioDTO dto, int id)
+        {
+            CodUsuario = id;
+            Nombre = dto.Nombre;
+            Dni = dto.Dni;
+            Tipo = dto.Tipo;
+            Clave = dto.Clave;
+            Email = dto.Usuario_Email;
+        }
+
+        public Usuario()
+        {
+            
+        }
+
         [Column("cod_usuario")]
         [Key]
         public int CodUsuario { get; set; }

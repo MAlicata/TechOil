@@ -11,6 +11,32 @@ namespace TechOil.DataAccess.Repositories
         {
             
         }
+        public override async Task<bool> Update(Usuario updateUsuario)
+        {
+           var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.CodUsuario == updateUsuario.CodUsuario);
+
+            if (usuario == null) { return false; }
+
+            usuario.Nombre = updateUsuario.Nombre;
+            usuario.Dni = updateUsuario.Dni;
+            usuario.Tipo = updateUsuario.Tipo;
+            usuario.Clave = updateUsuario.Clave;
+            usuario.Email = updateUsuario.Email;
+
+            _context.Usuarios.Update(usuario);
+            return true;
+        }
+
+
+        public override async Task<bool> Delete(int id)
+        {
+            var usuario = await _context.Usuarios.Where(x => x.CodUsuario == id).FirstOrDefaultAsync();
+            if (usuario != null) {
+                _context.Usuarios.Remove(usuario);
+            }
+                       
+            return true;
+        }
         public async Task<Usuario?> AuthenticateCredentials(AuthenticateDto dto)
         {
             return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == dto.Password);  
