@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TechOil.DTOs;
+using TechOil.Helper;
 
 namespace TechOil.Entities
 {
@@ -16,7 +17,7 @@ namespace TechOil.Entities
             Nombre = dto.Nombre;
             Dni = dto.Dni;
             Tipo = dto.Tipo;
-            Clave = dto.Clave;
+            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave);
             Email = dto.Usuario_Email;
         }
 
@@ -26,7 +27,7 @@ namespace TechOil.Entities
             Nombre = dto.Nombre;
             Dni = dto.Dni;
             Tipo = dto.Tipo;
-            Clave = dto.Clave;
+            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave);
             Email = dto.Usuario_Email;
         }
 
@@ -48,7 +49,7 @@ namespace TechOil.Entities
         [Column("tipo")]
         public Tipo Tipo { get; set; }
 
-        [Column("clave")]
+        [Column("clave", TypeName = "VARCHAR(250)")]
         public string Clave { get; set; }
 
         [Column("usuario_email", TypeName = "VARCHAR(100)")]

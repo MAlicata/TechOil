@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
+using TechOil.Helper;
 using TechOil.Services;
 
 namespace TechOil.Controllers
@@ -32,6 +33,7 @@ namespace TechOil.Controllers
         //[Authorize]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
+            
             var usuario = new Usuario(dto);
             await _unitOfWork.UsuarioRepository.Insert(usuario);
             await _unitOfWork.Complete();
