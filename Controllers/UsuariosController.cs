@@ -33,7 +33,7 @@ namespace TechOil.Controllers
         //[Authorize]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
-            PasswordEncryptHelper.EncryptPassword(dto.Clave);
+            
             var usuario = new Usuario(dto);
             await _unitOfWork.UsuarioRepository.Insert(usuario);
             await _unitOfWork.Complete();

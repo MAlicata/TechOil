@@ -2,6 +2,7 @@
 using TechOil.DataAccess.Repositories.Interfaces;
 using TechOil.DTOs;
 using TechOil.Entities;
+using TechOil.Helper;
 
 namespace TechOil.DataAccess.Repositories
 {
@@ -39,7 +40,7 @@ namespace TechOil.DataAccess.Repositories
         }
         public async Task<Usuario?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == dto.Password);  
+            return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == PasswordEncryptHelper.EncryptPassword(dto.Password));  
         }
     }
 }
