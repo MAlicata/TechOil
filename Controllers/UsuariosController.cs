@@ -19,7 +19,7 @@ namespace TechOil.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAll()
         {
            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
@@ -30,7 +30,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Register")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
             
@@ -42,7 +42,7 @@ namespace TechOil.Controllers
 
 
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, UsuarioDTO dto)
         {
             var result = await _unitOfWork.UsuarioRepository.Update(new Usuario(dto, id));
@@ -52,7 +52,7 @@ namespace TechOil.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UsuarioRepository.Delete(id);

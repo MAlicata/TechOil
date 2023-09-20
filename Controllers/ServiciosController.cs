@@ -10,7 +10,7 @@ namespace TechOil.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ServiciosController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -21,6 +21,7 @@ namespace TechOil.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAll()
         {
         var servicios = await _unitOfWork.ServicioRepository.GetAll();
@@ -29,6 +30,7 @@ namespace TechOil.Controllers
         }
 
         [HttpGet("activos")]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAllActivo()
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAllActivo();
@@ -36,9 +38,11 @@ namespace TechOil.Controllers
             return Ok(servicios);
         }
 
+        
         [HttpPost]
         [Route("Register")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
+
         public async Task<IActionResult> Register(ServicioDTO dto)
         {
             var servicio = new Servicio(dto);
@@ -48,7 +52,7 @@ namespace TechOil.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, ServicioDTO dto)
         {
             var result = await _unitOfWork.ServicioRepository.Update(new Servicio(dto, id));
@@ -58,7 +62,7 @@ namespace TechOil.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ServicioRepository.Delete(id);

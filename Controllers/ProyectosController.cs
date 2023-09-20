@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
@@ -17,6 +18,7 @@ namespace TechOil.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAll()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAll();
@@ -26,7 +28,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Register")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(ProyectoDTO dto)
         {
             var proyecto = new Proyecto(dto);
@@ -36,7 +38,7 @@ namespace TechOil.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, ProyectoDTO dto)
         {
             var result = await _unitOfWork.ProyectoRepository.Update(new Proyecto(dto, id));
@@ -47,7 +49,7 @@ namespace TechOil.Controllers
 
 
         [HttpDelete("{id}")]
-        //[Authorize]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ProyectoRepository.Delete(id);

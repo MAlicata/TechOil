@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Security.Claims;
+using TechOil.Entities;
 
 namespace TechOil
 {
@@ -55,6 +57,14 @@ namespace TechOil
             builder.Services.AddDbContext<ApplicationDbContext>(option =>
             {
                 option.UseSqlServer("name=DefaultConnection");
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("1", policy =>
+                {
+                    policy.RequireClaim(ClaimTypes.Role, Tipo.Administrador.ToString());
+                });
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
