@@ -17,7 +17,7 @@ namespace TechOil.Entities
             Nombre = dto.Nombre;
             Dni = dto.Dni;
             Tipo = dto.Tipo;
-            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave);
+            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave, dto.Usuario_Email);
             Email = dto.Usuario_Email;
         }
 
@@ -27,7 +27,7 @@ namespace TechOil.Entities
             Nombre = dto.Nombre;
             Dni = dto.Dni;
             Tipo = dto.Tipo;
-            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave);
+            Clave = PasswordEncryptHelper.EncryptPassword(dto.Clave, dto.Usuario_Email);
             Email = dto.Usuario_Email;
         }
 

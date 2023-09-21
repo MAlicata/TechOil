@@ -30,8 +30,7 @@ namespace TechOil.Controllers
             var token = _tokenJwtHelper.GenerateToken(usuarioCredentials);
 
             var usuario = new UsuarioLoginDto()
-            {
-               
+            {               
                 Email = usuarioCredentials.Email,
                 Name = usuarioCredentials.Nombre,                
                 Token = token

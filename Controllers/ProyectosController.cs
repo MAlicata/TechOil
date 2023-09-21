@@ -22,7 +22,6 @@ namespace TechOil.Controllers
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAll()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAll();
-
             return proyectos;
         }
 
@@ -42,7 +41,6 @@ namespace TechOil.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, ProyectoDTO dto)
         {
             var result = await _unitOfWork.ProyectoRepository.Update(new Proyecto(dto, id));
-
             await _unitOfWork.Complete();
             return Ok(true);
         }
@@ -53,7 +51,6 @@ namespace TechOil.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ProyectoRepository.Delete(id);
-
             await _unitOfWork.Complete();
             return Ok(true);
         }

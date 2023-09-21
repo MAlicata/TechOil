@@ -40,7 +40,7 @@ namespace TechOil.DataAccess.Repositories
         }
         public async Task<Usuario?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == PasswordEncryptHelper.EncryptPassword(dto.Password));  
+            return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email));  
         }
     }
 }
