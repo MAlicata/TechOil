@@ -22,8 +22,7 @@ namespace TechOil.Controllers
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Usuario>>> GetAll()
         {
-           var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
-           
+           var usuarios = await _unitOfWork.UsuarioRepository.GetAll();           
            return usuarios;
         }
 
@@ -32,8 +31,7 @@ namespace TechOil.Controllers
         [Route("Register")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
-        {
-            
+        {            
             var usuario = new Usuario(dto);
             await _unitOfWork.UsuarioRepository.Insert(usuario);
             await _unitOfWork.Complete();
@@ -46,7 +44,6 @@ namespace TechOil.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, UsuarioDTO dto)
         {
             var result = await _unitOfWork.UsuarioRepository.Update(new Usuario(dto, id));
-
             await _unitOfWork.Complete();
             return Ok(true);
         }
@@ -56,8 +53,7 @@ namespace TechOil.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UsuarioRepository.Delete(id);
-
-            await _unitOfWork.Complete();
+            await _unitOfWork.Complete();            
             return Ok(true);
         }
     }
