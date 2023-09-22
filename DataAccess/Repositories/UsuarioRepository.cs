@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TechOil.DataAccess.Repositories.Interfaces;
 using TechOil.DTOs;
 using TechOil.Entities;
 using TechOil.Helper;
+using TechOil.Services;
 
 namespace TechOil.DataAccess.Repositories
 {
@@ -42,5 +44,11 @@ namespace TechOil.DataAccess.Repositories
         {
             return await _context.Usuarios.SingleOrDefaultAsync(x => x.Email == dto.Email && x.Clave == PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email));  
         }
+
+        public async Task<bool> UsuarioExistente(string email)
+        {
+            return await _context.Usuarios.AnyAsync(x => x.Email == email);
+        }
+
     }
 }

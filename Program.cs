@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Security.Claims;
 using TechOil.Entities;
+using System.Reflection;
 
 namespace TechOil
 {
@@ -25,6 +26,12 @@ namespace TechOil
             //selector de swagger para poder realizar la api
             builder.Services.AddSwaggerGen(c =>
             {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TechOil", Version = "v1" });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xml = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xml);
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "Autorizacion JWT",

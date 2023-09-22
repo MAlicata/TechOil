@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
 using TechOil.Helper;
+using TechOil.Infrastructure;
 using TechOil.Services;
 
 namespace TechOil.Controllers
@@ -18,43 +19,86 @@ namespace TechOil.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Devuelve todos los usuarios
+        /// </summary>
+        /// <returns>Retorna todos los usuarios</returns>
+
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();           
-           return usuarios;
+           return ResponseFactory.CreateSuccessResponse(200, usuarios);
         }
+
+
+        /// <summary>
+        /// Registra el usuario
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Devuelve un usuario registrado con un statusCode 201</returns>
 
 
         [HttpPost]
         [Route("Register")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
-        {            
+        {
+            if (await _unitOfWork.UsuarioRepository.UsuarioExistente(dto.Usuario_Email)) return ResponseFactory.CreateErrorResponse(409, $"Existe un usuario con el mail: {dto.Usuario_Email}");
+            
             var usuario = new Usuario(dto);
             await _unitOfWork.UsuarioRepository.Insert(usuario);
+         
             await _unitOfWork.Complete();
-            return Ok(true);
+
+            return ResponseFactory.CreateSuccessResponse(201, "Usuario registrado con exito!");
         }
 
+        /// <summary>
+        /// Actualiza un usuario
+        /// </summary>
+        /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, UsuarioDTO dto)
         {
             var result = await _unitOfWork.UsuarioRepository.Update(new Usuario(dto, id));
-            await _unitOfWork.Complete();
-            return Ok(true);
+
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo actualizar el usuario");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
+            }            
         }
 
+        /// <summary>
+        /// Elimina un usuario
+        /// </summary>
+        /// <returns>Elimina o 500</returns>
         [HttpDelete("{id}")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UsuarioRepository.Delete(id);
-            await _unitOfWork.Complete();            
-            return Ok(true);
+
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el usuario");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Eliminado");
+            }                
+                       
         }
+
+        
     }
 }

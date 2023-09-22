@@ -15,7 +15,7 @@ namespace TechOil.Infrastructure
                 StatusCode = statusCode,
             };
         }
-        public static IActionResult CreateErrorResponse(int statusCode, string[] errors)
+        public static IActionResult CreateErrorResponse(int statusCode, params string[] errors)
         {
             var response = new ApiErrorResponse()
             {
