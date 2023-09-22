@@ -19,6 +19,11 @@ namespace TechOil.Controllers
             _tokenJwtHelper = new TokenJwtHelper(configuration);
         }
 
+        /// <summary>
+        /// Autentica un usuario
+        /// </summary>
+        /// <returns>Retorna un token de autenticacion</returns>
+
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]

@@ -4,6 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>C:\Users\54381\source\repos\TechOil\bin\Debug\net6.0\TechOil.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
+using TechOil.Infrastructure;
 using TechOil.Services;
 
 namespace TechOil.Controllers
@@ -17,6 +18,11 @@ namespace TechOil.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        /// <summary>
+        /// Devuelve todos los trabajos
+        /// </summary>
+        /// <returns>Retorna todos los trabajos</returns>
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Trabajo>>> GetAll()
@@ -24,6 +30,12 @@ namespace TechOil.Controllers
             var trabajos = await _unitOfWork.TrabajoRepository.GetAll();
             return trabajos;
         }
+
+        /// <summary>
+        /// Registra el trabajo
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns>Devuelve un trabajo registrado con un statusCode 201</returns>
 
         [HttpPost]
         [Route("Register")]
@@ -33,17 +45,35 @@ namespace TechOil.Controllers
             var trabajo = new Trabajo(dto);
             await _unitOfWork.TrabajoRepository.Insert(trabajo);
             await _unitOfWork.Complete();
-            return Ok(true);
+            
+            return ResponseFactory.CreateSuccessResponse(201, "Trabajo registrado con exito!");
         }
+
+        /// <summary>
+        /// Actualiza un trabajo
+        /// </summary>
+        /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, TrabajoDTO dto)
         {
             var result = await _unitOfWork.TrabajoRepository.Update(new Trabajo(dto, id));
-            await _unitOfWork.Complete();
-            return Ok(true);
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo actualizar el usuario");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
+            }
         }
+
+        /// <summary>
+        /// Elimina un trabajo
+        /// </summary>
+        /// <returns>Elimina o 500</returns>
 
         [HttpDelete("{id}")]
         [Authorize(Policy = "1")]
