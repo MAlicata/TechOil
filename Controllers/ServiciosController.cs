@@ -35,6 +35,28 @@ namespace TechOil.Controllers
         }
 
         /// <summary>
+        /// Devuelve un Servicio
+        /// </summary>
+        /// <returns>Retorna un servicio</returns>
+
+        [HttpGet("getById/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Servicio>> GetById([FromRoute] int id)
+        {
+            var servicio = await _unitOfWork.ServicioRepository.GetById(id);
+
+            if (servicio is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(404, $"Servicio con el id:{id} no encontrado");
+            }
+            else
+            {
+                return ResponseFactory.CreateSuccessResponseR(200, servicio);
+            }
+        }
+
+
+        /// <summary>
         /// Devuelve todos los servicios activos
         /// </summary>
         /// <returns>Retorna todos los servicios activos</returns>

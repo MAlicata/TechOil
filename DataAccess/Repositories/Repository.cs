@@ -16,7 +16,9 @@ namespace TechOil.DataAccess.Repositories
         public virtual async Task<List<T>> GetAll()
         {
             return await _context.Set<T>().ToListAsync();
-        }        
+        }
+
+        
         public virtual async Task<bool> Insert(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
@@ -36,6 +38,12 @@ namespace TechOil.DataAccess.Repositories
         public virtual Task<List<T>> GetAllActivo()
         {
             throw new NotImplementedException();
+        }
+
+        public virtual async Task<T> GetById(int id)
+        {
+            return await _context.Set<T>().FindAsync(id);
+            
         }
     }
 }

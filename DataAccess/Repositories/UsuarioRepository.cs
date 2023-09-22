@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TechOil.DataAccess.Repositories.Interfaces;
 using TechOil.DTOs;
 using TechOil.Entities;
 using TechOil.Helper;
+using TechOil.Infrastructure;
 using TechOil.Services;
 
 namespace TechOil.DataAccess.Repositories
