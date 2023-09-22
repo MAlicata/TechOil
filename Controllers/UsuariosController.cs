@@ -31,7 +31,27 @@ namespace TechOil.Controllers
            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();           
            return ResponseFactory.CreateSuccessResponse(200, usuarios);
         }
+                
+        /// <summary>
+        /// Devuelve un Usuario
+        /// </summary>
+        /// <returns>Retorna un usuario</returns>
 
+        [HttpGet("getById/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Usuario>> GetById([FromRoute] int id)
+        {
+            var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
+
+            if (usuario is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(404, $"Usuario con el id:{id} no encontrado");
+            }
+            else
+            {
+                return ResponseFactory.CreateSuccessResponseR(200, usuario);
+            }
+        }
 
         /// <summary>
         /// Registra el usuario

@@ -32,6 +32,27 @@ namespace TechOil.Controllers
         }
 
         /// <summary>
+        /// Devuelve un Trabajo
+        /// </summary>
+        /// <returns>Retorna un trabajo</returns>
+
+        [HttpGet("getById/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Trabajo>> GetById([FromRoute] int id)
+        {
+            var trabajo = await _unitOfWork.TrabajoRepository.GetById(id);
+     
+            if (trabajo is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(404, $"Trabajo con el id:{id} no encontrado");
+            }
+            else
+            {
+                return ResponseFactory.CreateSuccessResponseR(200, trabajo);
+            }
+        }
+
+        /// <summary>
         /// Registra el trabajo
         /// </summary>
         /// <param name="dto"></param>

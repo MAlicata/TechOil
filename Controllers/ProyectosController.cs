@@ -32,6 +32,26 @@ namespace TechOil.Controllers
         }
 
         /// <summary>
+        /// Devuelve un proyecto
+        /// </summary>
+        /// <returns>Retorna un proyecto</returns>
+
+        [HttpGet("getById/{id}")]
+        [AllowAnonymous]
+        public async Task<ActionResult<Proyecto>> GetById([FromRoute] int id)
+        {
+            var proyecto = await _unitOfWork.ProyectoRepository.GetById(id);
+            if(proyecto is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(404, $"Proyecto con el id:{id} no encontrado");
+            }
+            else
+            {
+                return ResponseFactory.CreateSuccessResponseR(200, proyecto);
+            }            
+        }
+
+        /// <summary>
         /// Registra el proyecto
         /// </summary>
         /// <param name="dto"></param>
