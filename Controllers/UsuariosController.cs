@@ -37,7 +37,7 @@ namespace TechOil.Controllers
         /// </summary>
         /// <returns>Retorna un usuario</returns>
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<Usuario>> GetById([FromRoute] int id)
         {
@@ -61,7 +61,7 @@ namespace TechOil.Controllers
 
 
         [HttpPost]
-        [Route("Register")]
+        [Route("Registrar")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {

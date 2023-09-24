@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechOil.DataAccess;
 
@@ -11,9 +12,10 @@ using TechOil.DataAccess;
 namespace TechOil.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230924145404_techOil2409")]
+    partial class techOil2409
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,6 +41,10 @@ namespace TechOil.Migrations
                     b.Property<int>("EstadoProyecto")
                         .HasColumnType("int")
                         .HasColumnName("estado_proyecto");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -76,6 +82,10 @@ namespace TechOil.Migrations
                     b.Property<int>("EstadoServicio")
                         .HasColumnType("int")
                         .HasColumnName("estado_servicio");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
 
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("DECIMAL")
@@ -124,6 +134,10 @@ namespace TechOil.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("fecha");
 
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
+
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("Decimal")
                         .HasColumnName("valor_hora");
@@ -144,7 +158,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 24, 19, 18, 4, 526, DateTimeKind.Local).AddTicks(7204),
+                            Fecha = new DateTime(2023, 9, 24, 11, 54, 4, 45, DateTimeKind.Local).AddTicks(7523),
                             ValorHora = 100m
                         });
                 });
@@ -171,6 +185,10 @@ namespace TechOil.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)")
                         .HasColumnName("usuario_email");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasColumnName("is_deleted");
 
                     b.Property<string>("Nombre")
                         .IsRequired()

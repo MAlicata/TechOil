@@ -39,7 +39,7 @@ namespace TechOil.Controllers
         /// </summary>
         /// <returns>Retorna un servicio</returns>
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<Servicio>> GetById([FromRoute] int id)
         {
@@ -76,7 +76,7 @@ namespace TechOil.Controllers
         /// <returns>Devuelve un servicio registrado con un statusCode 201</returns>
 
         [HttpPost]
-        [Route("Register")]
+        [Route("Registrar")]
         [Authorize(Policy = "1")]
 
         public async Task<IActionResult> Register(ServicioDTO dto)

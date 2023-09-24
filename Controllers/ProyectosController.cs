@@ -36,7 +36,7 @@ namespace TechOil.Controllers
         /// </summary>
         /// <returns>Retorna un proyecto</returns>
 
-        [HttpGet("getById/{id}")]
+        [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<ActionResult<Proyecto>> GetById([FromRoute] int id)
         {
@@ -106,7 +106,7 @@ namespace TechOil.Controllers
         /// <returns>Devuelve un proyecto registrado con un statusCode 201</returns>
 
         [HttpPost]
-        [Route("Register")]
+        [Route("Registrar")]
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(ProyectoDTO dto)
         {
