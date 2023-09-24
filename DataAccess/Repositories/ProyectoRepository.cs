@@ -11,6 +11,20 @@ namespace TechOil.DataAccess.Repositories
             
         }
 
+        public virtual async Task<List<Proyecto>> GetAllTerminado()
+        {
+            return await _context.Proyectos.Where(s => s.EstadoProyecto == EstadoProyecto.Terminado).ToListAsync();
+        }
+              
+        public virtual async Task<List<Proyecto>> GetAllConfirmado()
+        {
+            return await _context.Proyectos.Where(s => s.EstadoProyecto == EstadoProyecto.Confirmado).ToListAsync();
+        }        
+        public virtual async Task<List<Proyecto>> GetAllPendiente()
+        {
+            return await _context.Proyectos.Where(s => s.EstadoProyecto == EstadoProyecto.Pendiente).ToListAsync();
+        }
+
         public override async Task<bool> Update(Proyecto updateProyecto)
         {
             var proyecto = await _context.Proyectos.FirstOrDefaultAsync(x => x.CodProyecto == updateProyecto.CodProyecto);
