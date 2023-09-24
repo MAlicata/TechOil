@@ -52,6 +52,54 @@ namespace TechOil.Controllers
         }
 
         /// <summary>
+        /// Devuelve todos los proyectos en estado terminado
+        /// </summary>
+        /// <returns>Retorna todos los proyectos terminado</returns>
+
+        [HttpGet("terminado")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllTerminado()
+        {
+            var proyectos = await _unitOfWork.ProyectoRepository.GetAllTerminado();
+            if (proyectos is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(403, "Error recurso no encontrado");                
+            }
+            else
+            {
+                return ResponseFactory.CreateSuccessResponseR(200, proyectos);
+            }
+            
+        }
+
+        /// <summary>
+        /// Devuelve todos los proyectos en estado confirmado
+        /// </summary>
+        /// <returns>Retorna todos los proyectos confirmados</returns>
+
+        [HttpGet("confirmado")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllConfirmado()
+        {
+            var proyectos = await _unitOfWork.ProyectoRepository.GetAllConfirmado();
+            return Ok(proyectos);
+        }
+
+
+        /// <summary>
+        /// Devuelve todos los proyectos en estado pendiente
+        /// </summary>
+        /// <returns>Retorna todos los proyectos pendientes</returns>
+
+        [HttpGet("pendiente")]
+        [AllowAnonymous]
+        public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllPendiente()
+        {
+            var proyectos = await _unitOfWork.ProyectoRepository.GetAllPendiente();
+            return Ok(proyectos);
+        }
+
+        /// <summary>
         /// Registra el proyecto
         /// </summary>
         /// <param name="dto"></param>

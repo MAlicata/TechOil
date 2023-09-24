@@ -45,5 +45,20 @@ namespace TechOil.DataAccess.Repositories
             return await _context.Set<T>().FindAsync(id);
             
         }
+
+        public Task<List<T>> GetAllTerminado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<T>> GetAllConfirmado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Proyecto>> GetAllPendiente()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
