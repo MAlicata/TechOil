@@ -42,11 +42,11 @@ namespace TechOil.DataAccess.Repositories
         public override async Task<bool> Delete(int id)
         {
             var proyecto = await _context.Proyectos.Where(x => x.CodProyecto == id).FirstOrDefaultAsync();
-            if (proyecto != null)
+            if (proyecto == null)
             {
-                _context.Proyectos.Remove(proyecto);
+                return false;
             }
-
+            _context.Proyectos.Remove(proyecto);
             return true;
         }
     }

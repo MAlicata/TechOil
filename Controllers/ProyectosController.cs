@@ -24,11 +24,16 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos</returns>
 
         [HttpGet]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAll()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAll();
-            return proyectos;
+           
+            if (proyectos is null)
+            {
+                return ResponseFactory.CreateErrorResponseR(404, $"No se pudo obtener los recursos deseados");
+            }
+            return ResponseFactory.CreateSuccessResponseR(200, proyectos);
         }
 
         /// <summary>
@@ -37,7 +42,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un proyecto</returns>
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<Proyecto>> GetById([FromRoute] int id)
         {
             var proyecto = await _unitOfWork.ProyectoRepository.GetById(id);
@@ -57,7 +62,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos terminado</returns>
 
         [HttpGet("terminado")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllTerminado()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllTerminado();
@@ -78,7 +83,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos confirmados</returns>
 
         [HttpGet("confirmado")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllConfirmado()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllConfirmado();
@@ -92,7 +97,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos pendientes</returns>
 
         [HttpGet("pendiente")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllPendiente()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllPendiente();
@@ -107,7 +112,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(ProyectoDTO dto)
         {
             var proyecto = new Proyecto(dto);
@@ -119,21 +124,21 @@ namespace TechOil.Controllers
         /// <summary>
         /// Actualiza un proyecto
         /// </summary>
-        /// <returns>Actualizado o 500</returns>
+        /// <returns>Actualizado o 400</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, ProyectoDTO dto)
         {
             var result = await _unitOfWork.ProyectoRepository.Update(new Proyecto(dto, id));
             if (!result)
             {
-                return ResponseFactory.CreateErrorResponse(500, "No se pudo actualizar el usuario");
+                return ResponseFactory.CreateErrorResponse(400, "No se pudo actualizar el proyecto");
             }
             else
             {
                 await _unitOfWork.Complete();
-                return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
+                return ResponseFactory.CreateSuccessResponse(201, "Actualizado");
             }
         }
 
@@ -143,12 +148,19 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
         /// 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ProyectoRepository.Delete(id);
-            await _unitOfWork.Complete();
-            return Ok(true);
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el Proyecto");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Eliminado");
+            }
         }
 
 

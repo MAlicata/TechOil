@@ -27,7 +27,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los servicios</returns>
 
         [HttpGet]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAll()
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAll();
@@ -40,7 +40,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un servicio</returns>
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<Servicio>> GetById([FromRoute] int id)
         {
             var servicio = await _unitOfWork.ServicioRepository.GetById(id);
@@ -62,7 +62,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los servicios activos</returns>
 
         [HttpGet("activos")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAllActivo()
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAllActivo();
@@ -77,7 +77,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
 
         public async Task<IActionResult> Register(ServicioDTO dto)
         {
@@ -94,7 +94,7 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, ServicioDTO dto)
         {
             var result = await _unitOfWork.ServicioRepository.Update(new Servicio(dto, id));
@@ -115,12 +115,19 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await _unitOfWork.ServicioRepository.Delete(id);
-            await _unitOfWork.Complete();
-            return Ok(true);
+            var result = await _unitOfWork.ServicioRepository.Delete(id);      
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el Servicio");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Eliminado");
+            }
         }
 
     }

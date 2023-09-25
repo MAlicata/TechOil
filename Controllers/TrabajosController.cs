@@ -24,7 +24,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los trabajos</returns>
 
         [HttpGet]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Trabajo>>> GetAll()
         {
             var trabajos = await _unitOfWork.TrabajoRepository.GetAll();
@@ -37,7 +37,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un trabajo</returns>
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "AdministradorConsultor")]
+        [Authorize(Policy = "1o2")]
         public async Task<ActionResult<Trabajo>> GetById([FromRoute] int id)
         {
             var trabajo = await _unitOfWork.TrabajoRepository.GetById(id);
@@ -60,7 +60,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(TrabajoDTO dto)
         {
             var trabajo = new Trabajo(dto);
@@ -76,13 +76,13 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Update([FromRoute] int id, TrabajoDTO dto)
         {
             var result = await _unitOfWork.TrabajoRepository.Update(new Trabajo(dto, id));
             if (!result)
             {
-                return ResponseFactory.CreateErrorResponse(500, "No se pudo actualizar el usuario");
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo actualizar el trabajo");
             }
             else
             {
@@ -97,12 +97,19 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "Administrador")]
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.TrabajoRepository.Delete(id);
-            await _unitOfWork.Complete();
-            return Ok(true);
+            if (!result)
+            {
+                return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el trabajo");
+            }
+            else
+            {
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(200, "Eliminado");
+            }
         }
     }
 }
