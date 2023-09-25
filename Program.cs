@@ -68,11 +68,11 @@ namespace TechOil
 
             builder.Services.AddAuthorization(options =>
             {
-                options.AddPolicy("Administrador", policy =>
+                options.AddPolicy("1", policy =>
                 {
                     policy.RequireClaim(ClaimTypes.Role, Tipo.Administrador.ToString());
                 });
-                options.AddPolicy("AdministradorConsultor", policy =>
+                options.AddPolicy("1o2", policy =>
                 {
                     policy.RequireClaim(ClaimTypes.Role, Tipo.Administrador.ToString(), Tipo.Consultor.ToString());
                 });
