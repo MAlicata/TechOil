@@ -24,7 +24,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los trabajos</returns>
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Trabajo>>> GetAll()
         {
             var trabajos = await _unitOfWork.TrabajoRepository.GetAll();
@@ -37,7 +37,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un trabajo</returns>
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<Trabajo>> GetById([FromRoute] int id)
         {
             var trabajo = await _unitOfWork.TrabajoRepository.GetById(id);
@@ -60,7 +60,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Register(TrabajoDTO dto)
         {
             var trabajo = new Trabajo(dto);
@@ -76,7 +76,7 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Update([FromRoute] int id, TrabajoDTO dto)
         {
             var result = await _unitOfWork.TrabajoRepository.Update(new Trabajo(dto, id));
@@ -97,7 +97,7 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.TrabajoRepository.Delete(id);

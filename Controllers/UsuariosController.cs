@@ -25,7 +25,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los usuarios</returns>
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<IActionResult> GetAll()
         {
            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();           
@@ -38,7 +38,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un usuario</returns>
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<Usuario>> GetById([FromRoute] int id)
         {
             var usuario = await _unitOfWork.UsuarioRepository.GetById(id);
@@ -62,7 +62,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
             if (await _unitOfWork.UsuarioRepository.UsuarioExistente(dto.Usuario_Email)) return ResponseFactory.CreateErrorResponse(409, $"Existe un usuario con el mail: {dto.Usuario_Email}");
@@ -81,7 +81,7 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Update([FromRoute] int id, UsuarioDTO dto)
         {
             var result = await _unitOfWork.UsuarioRepository.Update(new Usuario(dto, id));
@@ -102,7 +102,7 @@ namespace TechOil.Controllers
         /// </summary>
         /// <returns>Elimina o 500</returns>
         [HttpDelete("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UsuarioRepository.Delete(id);
