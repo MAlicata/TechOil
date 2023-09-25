@@ -24,7 +24,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos</returns>
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAll()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAll();
@@ -37,7 +37,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un proyecto</returns>
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<Proyecto>> GetById([FromRoute] int id)
         {
             var proyecto = await _unitOfWork.ProyectoRepository.GetById(id);
@@ -57,7 +57,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos terminado</returns>
 
         [HttpGet("terminado")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllTerminado()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllTerminado();
@@ -78,7 +78,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos confirmados</returns>
 
         [HttpGet("confirmado")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllConfirmado()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllConfirmado();
@@ -92,7 +92,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos pendientes</returns>
 
         [HttpGet("pendiente")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAllPendiente()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllPendiente();
@@ -107,7 +107,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Register(ProyectoDTO dto)
         {
             var proyecto = new Proyecto(dto);
@@ -122,7 +122,7 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Update([FromRoute] int id, ProyectoDTO dto)
         {
             var result = await _unitOfWork.ProyectoRepository.Update(new Proyecto(dto, id));
@@ -143,7 +143,7 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
         /// 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ProyectoRepository.Delete(id);

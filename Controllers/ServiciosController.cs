@@ -27,7 +27,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los servicios</returns>
 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAll()
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAll();
@@ -40,7 +40,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna un servicio</returns>
 
         [HttpGet("{id}")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<Servicio>> GetById([FromRoute] int id)
         {
             var servicio = await _unitOfWork.ServicioRepository.GetById(id);
@@ -62,7 +62,7 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los servicios activos</returns>
 
         [HttpGet("activos")]
-        [AllowAnonymous]
+        [Authorize(Policy = "AdministradorConsultor")]
         public async Task<ActionResult<IEnumerable<Servicio>>> GetAllActivo()
         {
             var servicios = await _unitOfWork.ServicioRepository.GetAllActivo();
@@ -77,7 +77,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
 
         public async Task<IActionResult> Register(ServicioDTO dto)
         {
@@ -94,7 +94,7 @@ namespace TechOil.Controllers
         /// <returns>Actualizado o 500</returns>
 
         [HttpPut("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Update([FromRoute] int id, ServicioDTO dto)
         {
             var result = await _unitOfWork.ServicioRepository.Update(new Servicio(dto, id));
@@ -115,7 +115,7 @@ namespace TechOil.Controllers
         /// <returns>Elimina o 500</returns>
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "Administrador")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.ServicioRepository.Delete(id);
