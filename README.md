@@ -27,7 +27,7 @@ Se utiliza en conjunto con un enfoque Unit of Work, proporciona una abstracción
 asegura la coherencia de los datos en una aplicación. 
 Esto promueve la separación de preocupaciones y facilita el desarrollo y el mantenimiento de aplicaciones robustas y escalables.
 
-**	Interfaces: Se definirán las interfaces que utilizaremos en los servicios.
+*	Interfaces: Se definirán las interfaces que utilizaremos en los servicios.
 
 ### **Capa Services**
 Se utiliza en conjunto con el patrón Unit of Work, es responsable de implementar la lógica de negocio de la aplicación, 
