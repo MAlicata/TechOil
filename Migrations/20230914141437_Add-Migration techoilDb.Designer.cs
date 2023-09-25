@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechOil.DataAccess;
 
@@ -11,9 +12,10 @@ using TechOil.DataAccess;
 namespace TechOil.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230914141437_Add-Migration techoilDb")]
+    partial class AddMigrationtechoilDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,9 +55,9 @@ namespace TechOil.Migrations
                         new
                         {
                             CodProyecto = 9,
-                            Direccion = "San Miguel de Tucuman",
+                            Direccion = "San Miguel de tucuman",
                             EstadoProyecto = 2,
-                            Nombre = "Planta de Gas - Zona 1"
+                            Nombre = "Desarrollo de Api Web"
                         });
                 });
 
@@ -89,8 +91,8 @@ namespace TechOil.Migrations
                         new
                         {
                             CodServicio = 5,
-                            Descr = "Servicio de Refinamiento de Gas",
-                            EstadoServicio = 1,
+                            Descr = "Servicio de Marketing",
+                            EstadoServicio = 0,
                             ValorHora = 100m
                         });
                 });
@@ -144,7 +146,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 24, 19, 18, 4, 526, DateTimeKind.Local).AddTicks(7204),
+                            Fecha = new DateTime(2023, 9, 14, 11, 14, 36, 683, DateTimeKind.Local).AddTicks(3216),
                             ValorHora = 100m
                         });
                 });
@@ -160,7 +162,7 @@ namespace TechOil.Migrations
 
                     b.Property<string>("Clave")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(250)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("clave");
 
                     b.Property<int>("Dni")
@@ -189,9 +191,9 @@ namespace TechOil.Migrations
                         new
                         {
                             CodUsuario = 1,
-                            Clave = "588acee9920f023bfe4b60ff2def822ee7612d12f620db6677d637e799315884",
+                            Clave = "1234",
                             Dni = 12345678,
-                            Email = "matias@hotmail.com.ar",
+                            Email = "matias1995@hotmail.com.ar",
                             Nombre = "Matias",
                             Tipo = 1
                         });

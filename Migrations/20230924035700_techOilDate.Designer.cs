@@ -12,8 +12,8 @@ using TechOil.DataAccess;
 namespace TechOil.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230907131656_techoilDb")]
-    partial class techoilDb
+    [Migration("20230924035700_techOilDate")]
+    partial class techOilDate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -42,6 +42,10 @@ namespace TechOil.Migrations
                         .HasColumnType("int")
                         .HasColumnName("estado_proyecto");
 
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)")
@@ -55,9 +59,9 @@ namespace TechOil.Migrations
                         new
                         {
                             CodProyecto = 9,
-                            Direccion = "San Miguel de tucuman",
+                            Direccion = "San Miguel de Tucuman",
                             EstadoProyecto = 2,
-                            Nombre = "Desarrollo de Api Web"
+                            Nombre = "Planta de Gas - Zona 1"
                         });
                 });
 
@@ -79,6 +83,10 @@ namespace TechOil.Migrations
                         .HasColumnType("int")
                         .HasColumnName("estado_servicio");
 
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
+
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("DECIMAL")
                         .HasColumnName("valor_hora");
@@ -91,8 +99,8 @@ namespace TechOil.Migrations
                         new
                         {
                             CodServicio = 5,
-                            Descr = "Servicio de Marketing",
-                            EstadoServicio = 0,
+                            Descr = "Servicio de Refinamiento de Gas",
+                            EstadoServicio = 1,
                             ValorHora = 100m
                         });
                 });
@@ -126,6 +134,10 @@ namespace TechOil.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("fecha");
 
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
+
                     b.Property<decimal>("ValorHora")
                         .HasColumnType("Decimal")
                         .HasColumnName("valor_hora");
@@ -146,7 +158,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 7, 10, 16, 55, 741, DateTimeKind.Local).AddTicks(1442),
+                            Fecha = new DateTime(2023, 9, 24, 0, 57, 0, 397, DateTimeKind.Local).AddTicks(4890),
                             ValorHora = 100m
                         });
                 });
@@ -162,12 +174,21 @@ namespace TechOil.Migrations
 
                     b.Property<string>("Clave")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("VARCHAR(250)")
                         .HasColumnName("clave");
 
                     b.Property<int>("Dni")
                         .HasColumnType("int")
                         .HasColumnName("dni");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("usuario_email");
+
+                    b.Property<DateTime?>("FechaEliminacion")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("fecha_eliminacion");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -186,8 +207,9 @@ namespace TechOil.Migrations
                         new
                         {
                             CodUsuario = 1,
-                            Clave = "1234",
+                            Clave = "588acee9920f023bfe4b60ff2def822ee7612d12f620db6677d637e799315884",
                             Dni = 12345678,
+                            Email = "matias@hotmail.com.ar",
                             Nombre = "Matias",
                             Tipo = 1
                         });

@@ -1,11 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TechOil.DTOs;
 
 namespace TechOil.Entities
 {
     public class Trabajo
     {
-      
+        public Trabajo()
+        {
+            
+        }
+        public Trabajo(TrabajoDTO dto)
+        {
+            Fecha = dto.Fecha;
+            CodProyecto = dto.CodProyecto;
+            CodServicio = dto.CodServicio;
+            CantHoras = dto.CantHoras;
+            ValorHora = dto.ValorHora;
+            Costo = dto.Costo;
+        }
+        public Trabajo(TrabajoDTO dto, int id)
+        {
+            CodTrabajo = id;
+            CodProyecto = dto.CodProyecto;
+            CodServicio = dto.CodServicio;
+            CantHoras = dto.CantHoras;
+            ValorHora = dto.ValorHora;
+            Costo = dto.Costo;
+        }
+
         [Column("cod_trabajo")]
         [Key]
         public int CodTrabajo { get; set; }

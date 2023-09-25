@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechOil.Entities;
+using TechOil.Helper;
 
 namespace TechOil.DataAccess.DatabaseSeeding
 {
@@ -14,7 +15,8 @@ namespace TechOil.DataAccess.DatabaseSeeding
                     Nombre = "Matias",
                     Dni = 12345678,
                     Tipo = Tipo.Administrador,
-                    Clave = "1234"                    
+                    Clave = PasswordEncryptHelper.EncryptPassword("1234", "matias@hotmail.com.ar"),
+                    Email = "matias@hotmail.com.ar"
                 });
         }
     }

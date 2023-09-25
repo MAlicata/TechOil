@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TechOil.DataAccess;
 
@@ -11,9 +12,10 @@ using TechOil.DataAccess;
 namespace TechOil.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230918150906_techoil18")]
+    partial class techoil18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +146,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 24, 19, 18, 4, 526, DateTimeKind.Local).AddTicks(7204),
+                            Fecha = new DateTime(2023, 9, 18, 12, 9, 6, 461, DateTimeKind.Local).AddTicks(6834),
                             ValorHora = 100m
                         });
                 });
@@ -160,7 +162,7 @@ namespace TechOil.Migrations
 
                     b.Property<string>("Clave")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(250)")
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("clave");
 
                     b.Property<int>("Dni")
@@ -189,7 +191,7 @@ namespace TechOil.Migrations
                         new
                         {
                             CodUsuario = 1,
-                            Clave = "588acee9920f023bfe4b60ff2def822ee7612d12f620db6677d637e799315884",
+                            Clave = "1234",
                             Dni = 12345678,
                             Email = "matias@hotmail.com.ar",
                             Nombre = "Matias",
