@@ -62,7 +62,7 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]
+        [Authorize(Policy = "1")]        
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
             if (await _unitOfWork.UsuarioRepository.UsuarioExistente(dto.Usuario_Email)) return ResponseFactory.CreateErrorResponse(409, $"Existe un usuario con el mail: {dto.Usuario_Email}");

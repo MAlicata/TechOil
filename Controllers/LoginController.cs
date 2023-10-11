@@ -41,7 +41,8 @@ namespace TechOil.Controllers
                 Token = token
             };
 
-            return Ok(token);
+            //return Ok(token);
+            return Ok(usuario);
         }
     }
 }

@@ -17,6 +17,17 @@ namespace TechOil
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Cors
+
+            var misReglasCors = "ReglasCors";
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy(name: misReglasCors, builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -100,9 +111,12 @@ namespace TechOil
 
             app.UseHttpsRedirection();
 
+
+            app.UseCors(misReglasCors);
+
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.MapControllers();
 
