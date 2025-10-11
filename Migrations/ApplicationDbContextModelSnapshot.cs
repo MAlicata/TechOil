@@ -144,7 +144,7 @@ namespace TechOil.Migrations
                             CodProyecto = 9,
                             CodServicio = 5,
                             Costo = 2000m,
-                            Fecha = new DateTime(2023, 9, 24, 19, 18, 4, 526, DateTimeKind.Local).AddTicks(7204),
+                            Fecha = new DateTime(2025, 10, 10, 20, 16, 47, 836, DateTimeKind.Local).AddTicks(658),
                             ValorHora = 100m
                         });
                 });
