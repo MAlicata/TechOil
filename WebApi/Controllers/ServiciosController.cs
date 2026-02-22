@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata.Ecma335;
 using TechOil.DTOs;
 using TechOil.Entities;
 using TechOil.Infrastructure;
@@ -47,11 +45,11 @@ namespace TechOil.Controllers
 
             if (servicio is null)
             {
-                return ResponseFactory.CreateErrorResponseR(404, $"Servicio con el id:{id} no encontrado");
+                return ResponseFactory.CreateErrorResponse(404, $"Servicio con el id:{id} no encontrado");
             }
             else
             {
-                return ResponseFactory.CreateSuccessResponseR(200, servicio);
+                return ResponseFactory.CreateSuccessResponse(200, servicio);
             }
         }
 
@@ -84,7 +82,7 @@ namespace TechOil.Controllers
             var servicio = new Servicio(dto);
             await _unitOfWork.ServicioRepository.Insert(servicio);
             await _unitOfWork.Complete();
-           
+
             return ResponseFactory.CreateSuccessResponse(201, "Servicio registrado con exito!");
         }
 
@@ -118,7 +116,7 @@ namespace TechOil.Controllers
         [Authorize(Policy = "1")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await _unitOfWork.ServicioRepository.Delete(id);      
+            var result = await _unitOfWork.ServicioRepository.Delete(id);
             if (!result)
             {
                 return ResponseFactory.CreateErrorResponse(500, "No se pudo eliminar el Servicio");

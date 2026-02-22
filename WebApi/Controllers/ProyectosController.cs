@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
@@ -24,16 +23,16 @@ namespace TechOil.Controllers
         /// <returns>Retorna todos los proyectos</returns>
 
         [HttpGet]
-        [Authorize(Policy = "1o2")]
+        //[Authorize(Policy = "1o2")]
         public async Task<ActionResult<IEnumerable<Proyecto>>> GetAll()
         {
             var proyectos = await _unitOfWork.ProyectoRepository.GetAll();
-           
+
             if (proyectos is null)
             {
-                return ResponseFactory.CreateErrorResponseR(404, $"No se pudo obtener los recursos deseados");
+                return ResponseFactory.CreateErrorResponse(404, $"No se pudo obtener los recursos deseados");
             }
-            return ResponseFactory.CreateSuccessResponseR(200, proyectos);
+            return ResponseFactory.CreateSuccessResponse(200, proyectos);
         }
 
         /// <summary>
@@ -46,14 +45,14 @@ namespace TechOil.Controllers
         public async Task<ActionResult<Proyecto>> GetById([FromRoute] int id)
         {
             var proyecto = await _unitOfWork.ProyectoRepository.GetById(id);
-            if(proyecto is null)
+            if (proyecto is null)
             {
-                return ResponseFactory.CreateErrorResponseR(404, $"Proyecto con el id:{id} no encontrado");
+                return ResponseFactory.CreateErrorResponse(404, $"Proyecto con el id:{id} no encontrado");
             }
             else
             {
-                return ResponseFactory.CreateSuccessResponseR(200, proyecto);
-            }            
+                return ResponseFactory.CreateSuccessResponse(200, proyecto);
+            }
         }
 
         /// <summary>
@@ -68,13 +67,13 @@ namespace TechOil.Controllers
             var proyectos = await _unitOfWork.ProyectoRepository.GetAllTerminado();
             if (proyectos is null)
             {
-                return ResponseFactory.CreateErrorResponseR(403, "Error recurso no encontrado");                
+                return ResponseFactory.CreateErrorResponse(403, "Error recurso no encontrado");
             }
             else
             {
-                return ResponseFactory.CreateSuccessResponseR(200, proyectos);
+                return ResponseFactory.CreateSuccessResponse(200, proyectos);
             }
-            
+
         }
 
         /// <summary>

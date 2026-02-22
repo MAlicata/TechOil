@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
-using TechOil.Helper;
 using TechOil.Infrastructure;
 using TechOil.Services;
 
@@ -14,8 +12,8 @@ namespace TechOil.Controllers
     public class UsuariosController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UsuariosController(IUnitOfWork unitOfWork) 
-        { 
+        public UsuariosController(IUnitOfWork unitOfWork)
+        {
             _unitOfWork = unitOfWork;
         }
 
@@ -28,10 +26,10 @@ namespace TechOil.Controllers
         [Authorize(Policy = "1o2")]
         public async Task<IActionResult> GetAll()
         {
-           var usuarios = await _unitOfWork.UsuarioRepository.GetAll();           
-           return ResponseFactory.CreateSuccessResponse(200, usuarios);
+            var usuarios = await _unitOfWork.UsuarioRepository.GetAll();
+            return ResponseFactory.CreateSuccessResponse(200, usuarios);
         }
-                
+
         /// <summary>
         /// Devuelve un Usuario
         /// </summary>
@@ -45,11 +43,11 @@ namespace TechOil.Controllers
 
             if (usuario is null)
             {
-                return ResponseFactory.CreateErrorResponseR(404, $"Usuario con el id:{id} no encontrado");
+                return ResponseFactory.CreateErrorResponse(404, $"Usuario con el id:{id} no encontrado");
             }
             else
             {
-                return ResponseFactory.CreateSuccessResponseR(200, usuario);
+                return ResponseFactory.CreateSuccessResponse(200, usuario);
             }
         }
 
@@ -62,14 +60,14 @@ namespace TechOil.Controllers
 
         [HttpPost]
         [Route("Registrar")]
-        [Authorize(Policy = "1")]        
+        [Authorize(Policy = "1")]
         public async Task<IActionResult> Register(UsuarioDTO dto)
         {
             if (await _unitOfWork.UsuarioRepository.UsuarioExistente(dto.Usuario_Email)) return ResponseFactory.CreateErrorResponse(409, $"Existe un usuario con el mail: {dto.Usuario_Email}");
-            
+
             var usuario = new Usuario(dto);
             await _unitOfWork.UsuarioRepository.Insert(usuario);
-         
+
             await _unitOfWork.Complete();
 
             return ResponseFactory.CreateSuccessResponse(201, "Usuario registrado con exito!");
@@ -94,7 +92,7 @@ namespace TechOil.Controllers
             {
                 await _unitOfWork.Complete();
                 return ResponseFactory.CreateSuccessResponse(200, "Actualizado");
-            }            
+            }
         }
 
         /// <summary>
@@ -115,10 +113,10 @@ namespace TechOil.Controllers
             {
                 await _unitOfWork.Complete();
                 return ResponseFactory.CreateSuccessResponse(200, "Eliminado");
-            }                
-                       
+            }
+
         }
 
-        
+
     }
 }

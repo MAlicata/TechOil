@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TechOil.DTOs;
 using TechOil.Entities;
@@ -41,14 +40,14 @@ namespace TechOil.Controllers
         public async Task<ActionResult<Trabajo>> GetById([FromRoute] int id)
         {
             var trabajo = await _unitOfWork.TrabajoRepository.GetById(id);
-     
+
             if (trabajo is null)
             {
-                return ResponseFactory.CreateErrorResponseR(404, $"Trabajo con el id:{id} no encontrado");
+                return ResponseFactory.CreateErrorResponse(404, $"Trabajo con el id:{id} no encontrado");
             }
             else
             {
-                return ResponseFactory.CreateSuccessResponseR(200, trabajo);
+                return ResponseFactory.CreateSuccessResponse(200, trabajo);
             }
         }
 
@@ -66,7 +65,7 @@ namespace TechOil.Controllers
             var trabajo = new Trabajo(dto);
             await _unitOfWork.TrabajoRepository.Insert(trabajo);
             await _unitOfWork.Complete();
-            
+
             return ResponseFactory.CreateSuccessResponse(201, "Trabajo registrado con exito!");
         }
 

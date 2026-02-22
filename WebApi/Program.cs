@@ -19,7 +19,7 @@ namespace TechOil
 
             //Cors
 
-            var misReglasCors = "ReglasCors";
+            var misReglasCors = "https://localhost:7200/";
             builder.Services.AddCors(opt =>
             {
                 opt.AddPolicy(name: misReglasCors, builder =>

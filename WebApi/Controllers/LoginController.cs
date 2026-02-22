@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using TechOil.DTOs;
 using TechOil.Helper;
 using TechOil.Services;
@@ -14,7 +13,8 @@ namespace TechOil.Controllers
     {
         private TokenJwtHelper _tokenJwtHelper;
         private readonly IUnitOfWork _unitOfWork;
-        public LoginController(IUnitOfWork unitOfWork, IConfiguration configuration) {
+        public LoginController(IUnitOfWork unitOfWork, IConfiguration configuration)
+        {
             _unitOfWork = unitOfWork;
             _tokenJwtHelper = new TokenJwtHelper(configuration);
         }
@@ -29,19 +29,18 @@ namespace TechOil.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(AuthenticateDto dto)
         {
-            var usuarioCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(dto); //esto me responde con un usuario
-            if(usuarioCredentials == null) { return Unauthorized("Las credenciales son incorrectas"); }
+            var usuarioCredentials = await _unitOfWork.UsuarioRepository.AuthenticateCredentials(dto);
+            if (usuarioCredentials == null) { return Unauthorized("Las credenciales son incorrectas"); }
 
             var token = _tokenJwtHelper.GenerateToken(usuarioCredentials);
 
             var usuario = new UsuarioLoginDto()
-            {               
+            {
                 Email = usuarioCredentials.Email,
-                Name = usuarioCredentials.Nombre,                
+                Name = usuarioCredentials.Nombre,
                 Token = token
             };
 
-            //return Ok(token);
             return Ok(usuario);
         }
     }
